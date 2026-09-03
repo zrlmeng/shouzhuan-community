@@ -1,0 +1,83 @@
+# 社区版 · 基础框架 manifest（唯一对外引流 SKU）
+# 规范：docs/71 · docs/platform/delivery/社区版与独立部署开发指南.md
+#       docs/platform/delivery/装机与私有化-双版本交付规范（开源版·加密版）.md
+# 说明：垂直能力不在出厂包内 — remote_market 按需装；首样板推荐 appmarket.core（见 FIRST-ADDON-DEMO）
+# recommended_first_vertical: appmarket.core
+# 商7 策略 A：earn.core / gametrial.core / appmarket.core / ad 预装进 -Pruntime JAR；出厂菜单关，已购装包后打开
+
+product_id: install
+version: "1.0.2"
+maturity: L-API
+maturity_note: Declared L-API · frameworkVersion for install wizard + platform updates (docs/73)
+description: ZTDH install base — encrypted runtime default; optional OSS thin source; tenant market + control-plane catalog sync
+
+backend:
+  topology: monolith
+  database: mysql8
+  edition: standalone
+  # 出厂内核 + 壳 + 市场客户端 + 策略 A 常见 SKU（菜单仍关）
+  modules:
+    - platform.kernel
+    - platform.template
+    # 社区版领证涨粉：收 subscribe/SCAN（带参二维码）
+    - platform.mp
+    - member
+    - app-common
+    - app-message
+    - app-account
+    - app-staff
+    # shell companion：ContentWriteGate（非垂直；缺则 runtime 起不来）
+    - app-moderation
+    - earn.core
+    - gametrial.core
+    - ad.taku
+    - appmarket.core
+  shared_modules:
+    - platform.kernel
+    - platform.template
+    - member.auth
+    - common.home
+    - message.inbox
+    - account.profile
+    - staff.zone
+  # 基础框架无 L3 主业务；primary_module 省略
+  exclude_modules:
+    - app-survey
+    - app-browser
+    - app-weather
+    - app-cs
+    - content
+    - developer
+    - commercial
+
+client:
+  platform_core: "com.ztdh.platform:platform-core:0.1.0"
+  sdks:
+    - sdk-app-template
+  exclude_sdks:
+    - sdk-earn
+    - sdk-browser
+    - sdk-weather
+    - sdk-survey
+    - sdk-ad
+    - sdk-content
+
+license:
+  required_capabilities:
+    - platform.kernel
+  # 子能力 earn.core / browser.core 等由主站市场加购后写入 Grant
+
+remote_market:
+  enabled: true
+  sync_with_control_plane_catalog: true
+  # 能力制品 component 示例：backend-capability-* / sdk-* / sql-*
+
+delivery:
+  tier: install
+  includes_trimmed_source: true
+  marketplace_ui: tenant_admin
+  # 商6：双门槛 — 过渡硬门 + 目标（瘦身 Sprint）；见 DELIVERY-PACKAGE-SIZE-STRATEGY.md
+  max_enc_tar_mb: 400
+  interim_max_enc_tar_mb: 400
+  target_enc_tar_mb: 280
+  slim_deferred: true

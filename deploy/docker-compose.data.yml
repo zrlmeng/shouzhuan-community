@@ -1,0 +1,40 @@
+# install 基础框架 · 数据层（7060 联调 · 与 biz-staging 18082 隔离）
+name: ztdh-install-data
+
+services:
+  ztdh-install-mysql:
+    image: mysql:8.0
+    container_name: ztdh-install-mysql
+    restart: unless-stopped
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-ruoyi-vue-pro}
+    volumes:
+      - ztdh-install-mysql-data:/var/lib/mysql
+    networks:
+      - ztdh-install-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  ztdh-install-redis:
+    image: redis:7-alpine
+    container_name: ztdh-install-redis
+    restart: unless-stopped
+    networks:
+      - ztdh-install-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 12
+
+networks:
+  ztdh-install-net:
+    external: true
+
+volumes:
+  ztdh-install-mysql-data:

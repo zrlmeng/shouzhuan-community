@@ -1,0 +1,4 @@
+.env
+.mysql-credentials.once
+.runtime-sql-applied
+*.log
