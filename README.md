@@ -60,7 +60,3 @@ docker pull zhitongdaohe/shouzhuan-community:1.0.2
 | Gitee | https://gitee.com/zrlmeng/shouzhuan-community |
 | Docker Hub | https://hub.docker.com/r/zhitongdaohe/shouzhuan-community |
 | 帮助文档 | https://docs.zrlmeng.com/community/ |
-
----
-
-© 山西智同道合科技有限公司
