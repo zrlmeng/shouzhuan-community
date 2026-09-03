@@ -55,9 +55,8 @@
 | 工单 / 邮件 | support@zrlmeng.com |
 | 预发演示（非生产） | https://install-staging.zrlmeng.com/ |
 
-过审材料清单：[BAOTA-MARKET-SUBMIT.md](./BAOTA-MARKET-SUBMIT.md)（§C2 人工提交）。  
-阿里云云市场（**不去掉 License**；镜像类 + 开机自动激活）：[上架方案](../../docs/platform/delivery/社区版-阿里云云市场上架方案.md) · [ALIYUN-MARKET-SUBMIT.md](./ALIYUN-MARKET-SUBMIT.md)。
-Docker Hub（另做镜像再 `docker push`；禁源码/密钥/万能激活码）：[发布规范](../../docs/platform/delivery/社区版-Docker-Hub发布规范.md) · [DOCKER-HUB-SUBMIT.md](./DOCKER-HUB-SUBMIT.md)。
+Docker Hub 镜像：https://hub.docker.com/r/zhitongdaohe/shouzhuan-community  
+更多说明见仓库根目录 [README.md](../README.md)。
 
 ## 交付包体积（商6）
 
